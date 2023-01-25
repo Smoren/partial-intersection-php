@@ -37,9 +37,9 @@ It is equivalent to classical union operation (for any **N**).
 ![image](docs/images/1.png)
 
 ```php
-use Smoren\PartialIntersection\SimpleIntSetImplementation;
+use Smoren\PartialIntersection\IntegerSetArrayImplementation;
 
-$r = SimpleIntSetImplementation::partialIntersection(1, $a, $b, $c, $d);
+$r = IntegerSetArrayImplementation::partialIntersection(1, $a, $b, $c, $d);
 // [1, 2, 3, 4, 5, 10, 11, 12, 13, 14]
 ```
 
@@ -49,9 +49,9 @@ It is equivalent to `union($a, $b, $c, $d) - symmetricDifference($a, $b, $c, $d)
 ![image](docs/images/2.png)
 
 ```php
-use Smoren\PartialIntersection\SimpleIntSetImplementation;
+use Smoren\PartialIntersection\IntegerSetArrayImplementation;
 
-$r = SimpleIntSetImplementation::partialIntersection(2, $a, $b, $c, $d);
+$r = IntegerSetArrayImplementation::partialIntersection(2, $a, $b, $c, $d);
 // [1, 2, 3, 4]
 ```
 
@@ -60,9 +60,9 @@ $r = SimpleIntSetImplementation::partialIntersection(2, $a, $b, $c, $d);
 ![image](docs/images/3.png)
 
 ```php
-use Smoren\PartialIntersection\SimpleIntSetImplementation;
+use Smoren\PartialIntersection\IntegerSetArrayImplementation;
 
-$r = SimpleIntSetImplementation::partialIntersection(3, $a, $b, $c, $d);
+$r = IntegerSetArrayImplementation::partialIntersection(3, $a, $b, $c, $d);
 // [1, 2]
 ```
 
@@ -72,9 +72,9 @@ It is equivalent to classical (complete) intersection operation (for any **N**).
 ![image](docs/images/4.png)
 
 ```php
-use Smoren\PartialIntersection\SimpleIntSetImplementation;
+use Smoren\PartialIntersection\IntegerSetArrayImplementation;
 
-$r = SimpleIntSetImplementation::partialIntersection(4, $a, $b, $c, $d);
+$r = IntegerSetArrayImplementation::partialIntersection(4, $a, $b, $c, $d);
 // [1]
 ```
 
@@ -84,8 +84,8 @@ It is equivalent to empty set (for any **M**, **N**: **M > N**)
 ![image](docs/images/5.png)
 
 ```php
-use Smoren\PartialIntersection\SimpleIntSetImplementation;
+use Smoren\PartialIntersection\IntegerSetArrayImplementation;
 
-$r = SimpleIntSetImplementation::partialIntersection(5, $a, $b, $c, $d);
+$r = IntegerSetArrayImplementation::partialIntersection(5, $a, $b, $c, $d);
 // []
 ```

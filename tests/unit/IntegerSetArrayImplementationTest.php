@@ -2,24 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Smoren\Sequence\Tests\Unit;
+namespace Smoren\PartialIntersection\Tests\Unit;
 
 use Codeception\Test\Unit;
-use Smoren\PartialIntersection\SimpleIntSetImplementation;
+use Smoren\PartialIntersection\IntegerSetArrayImplementation;
 
-class SimpleIntSetImplementationTest extends Unit
+class IntegerSetArrayImplementationTest extends Unit
 {
     /**
      * @dataProvider dataProviderForDemo
+     * @dataProvider dataProviderForMain
      * @param array $sets
      * @param int $m
      * @param array $expected
      * @return void
      */
-    public function testDemo(array $sets, int $m, array $expected): void
+    public function testMain(array $sets, int $m, array $expected): void
     {
         // When
-        $result = SimpleIntSetImplementation::partialIntersection($m, ...$sets);
+        $result = IntegerSetArrayImplementation::partialIntersection($m, ...$sets);
 
         // Then
         $this->assertEquals($expected, $result);
@@ -79,22 +80,6 @@ class SimpleIntSetImplementationTest extends Unit
                 [],
             ],
         ];
-    }
-
-    /**
-     * @dataProvider dataProviderForMain
-     * @param array $sets
-     * @param int $m
-     * @param array $expected
-     * @return void
-     */
-    public function testMain(array $sets, int $m, array $expected): void
-    {
-        // When
-        $result = SimpleIntSetImplementation::partialIntersection($m, ...$sets);
-
-        // Then
-        $this->assertEquals($expected, $result);
     }
 
     public function dataProviderForMain(): array

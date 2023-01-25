@@ -1,24 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Smoren\PartialIntersection;
 
-class SimpleIntSetImplementation
+use Smoren\PartialIntersection\Util\IteratorFactory;
+
+class IntegerSetIterableImplementation
 {
     /**
      * @param int $m
-     * @param array<int> ...$sets
-     * @return array<int>
+     * @param iterable<int> ...$sets
+     * @return \Generator<int>
      */
-    public static function partialIntersection(int $m, array ...$sets): array
+    public static function partialIntersection(int $m, iterable ...$sets): \Generator
     {
         $iterator = new \MultipleIterator(\MultipleIterator::MIT_NEED_ANY);
 
         foreach ($sets as $set) {
-            $iterator->attachIterator(new \ArrayIterator($set));
+            $iterator->attachIterator(IteratorFactory::makeIterator($set));
         }
 
         $usageMap = [];
-        $result = [];
 
         foreach ($iterator as $values) {
             foreach ($values as $value) {
@@ -33,13 +36,9 @@ class SimpleIntSetImplementation
                 $usageMap[$value]++;
 
                 if ($usageMap[$value] === $m) {
-                    $result[] = $value;
+                    yield $value;
                 }
             }
         }
-
-        sort($result);
-
-        return $result;
     }
 }

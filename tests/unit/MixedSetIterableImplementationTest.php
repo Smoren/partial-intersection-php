@@ -18,10 +18,12 @@ class MixedSetIterableImplementationTest extends Unit
      * @dataProvider dataProviderForGenerators
      * @dataProvider dataProviderForIterators
      * @dataProvider dataProviderForTraversables
+     * @dataProvider dataProviderForStrict
      *
      * @param array $sets
      * @param int $m
      * @param array $expected
+     *
      * @return void
      */
     public function testStrict(array $sets, int $m, array $expected): void
@@ -31,6 +33,36 @@ class MixedSetIterableImplementationTest extends Unit
 
         // When
         foreach (MixedSetIterableImplementation::partialIntersection(true, $m, ...$sets) as $value) {
+            $result[] = $value;
+        }
+        sort($result);
+        sort($expected);
+
+        // Then
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @dataProvider dataProviderForDemo
+     * @dataProvider dataProviderForArrays
+     * @dataProvider dataProviderForGenerators
+     * @dataProvider dataProviderForIterators
+     * @dataProvider dataProviderForTraversables
+     * @dataProvider dataProviderForNonStrict
+     *
+     * @param array $sets
+     * @param int $m
+     * @param array $expected
+     *
+     * @return void
+     */
+    public function testNonStrict(array $sets, int $m, array $expected): void
+    {
+        // Given
+        $result = [];
+
+        // When
+        foreach (MixedSetIterableImplementation::partialIntersection(false, $m, ...$sets) as $value) {
             $result[] = $value;
         }
         sort($result);
@@ -91,6 +123,138 @@ class MixedSetIterableImplementationTest extends Unit
                     [1, 4, 13, 14],
                 ],
                 5,
+                [],
+            ],
+        ];
+    }
+
+    public function dataProviderForStrict(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, '3', 4, 5],
+                    [2, '3', 4, 5, 6],
+                    [3, 4, 5, 6, 7],
+                ],
+                1,
+                [1, 2, '3', 3, 4, 5, 6, 7],
+            ],
+            [
+                [
+                    [1, 2, '3', 4, 5],
+                    [2, '3', 4, 5, 6],
+                    [3, 4, 5, 6, 7],
+                ],
+                2,
+                [2, 3, 4, 5, 6],
+            ],
+            [
+                [
+                    [1, 2, '3', 4, 5],
+                    [2, '3', 4, 5, 6],
+                    [3, 4, 5, 6, 7],
+                ],
+                3,
+                [4, 5],
+            ],
+            [
+                [
+                    [1, 2, '3', 4, 5],
+                    [2, '3', 4, 5, 6],
+                    [3, 4, 5, 6, 7],
+                ],
+                4,
+                [],
+            ],
+            [
+                [
+                    [1, 2, 1.2, 1.3, 'a', 'b', true, false],
+                    [1, 3, 1.2, 1.5, 'a', 'c', true],
+                ],
+                1,
+                [1, 2, 3, 1.2, 1.3, 1.5, 'a', 'b', 'c', true, false],
+            ],
+            [
+                [
+                    [1, 2, 1.2, 1.3, 'a', 'b', true, false],
+                    [1, 3, 1.2, 1.5, 'a', 'c', true],
+                ],
+                2,
+                [1, 1.2, 'a', true],
+            ],
+            [
+                [
+                    [1, 2, 1.2, 1.3, 'a', 'b', true, false],
+                    [1, 3, 1.2, 1.5, 'a', 'c', true],
+                ],
+                3,
+                [],
+            ],
+        ];
+    }
+
+    public function dataProviderForNonStrict(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, '3', 4, 5],
+                    [2, '3', 4, 5, 6],
+                    [3, 4, 5, 6, 7],
+                ],
+                1,
+                [1, 2, 3, 4, 5, 6, 7],
+            ],
+            [
+                [
+                    [1, 2, '3', 4, 5],
+                    [2, '3', 4, 5, 6],
+                    [3, 4, 5, 6, 7],
+                ],
+                2,
+                [2, 3, 4, 5, 6],
+            ],
+            [
+                [
+                    [1, 2, '3', 4, 5],
+                    [2, '3', 4, 5, 6],
+                    [3, 4, 5, 6, 7],
+                ],
+                3,
+                [3, 4, 5],
+            ],
+            [
+                [
+                    [1, 2, '3', 4, 5],
+                    [2, '3', 4, 5, 6],
+                    [3, 4, 5, 6, 7],
+                ],
+                4,
+                [],
+            ],
+            [
+                [
+                    [1, 2, 1.2, 1.3, 'a', 'b', false],
+                    [0, 3, 1.2, 1.5, 'a', 'c', true],
+                ],
+                1,
+                [0, 1, 2, 3, 1.2, 1.3, 1.5, 'a', 'b', 'c'],
+            ],
+            [
+                [
+                    [1, 2, 1.2, 1.3, 'a', 'b', false],
+                    [0, 3, 1.2, 1.5, 'a', 'c', true],
+                ],
+                2,
+                [false, 'a', 1.2, true],
+            ],
+            [
+                [
+                    [1, 2, 1.2, 1.3, 'a', 'b', false],
+                    [0, 3, 1.2, 1.5, 'a', 'c', true],
+                ],
+                3,
                 [],
             ],
         ];
@@ -259,66 +423,6 @@ class MixedSetIterableImplementationTest extends Unit
                     [false],
                 ],
                 3,
-                [],
-            ],
-            [
-                [
-                    [1, 2, 1.2, 1.3, 'a', 'b', true, false],
-                    [1, 3, 1.2, 1.5, 'a', 'c', true],
-                ],
-                1,
-                [1, 2, 3, 1.2, 1.3, 1.5, 'a', 'b', 'c', true, false],
-            ],
-            [
-                [
-                    [1, 2, 1.2, 1.3, 'a', 'b', true, false],
-                    [1, 3, 1.2, 1.5, 'a', 'c', true],
-                ],
-                2,
-                [1, 1.2, 'a', true],
-            ],
-            [
-                [
-                    [1, 2, 1.2, 1.3, 'a', 'b', true, false],
-                    [1, 3, 1.2, 1.5, 'a', 'c', true],
-                ],
-                3,
-                [],
-            ],
-            [
-                [
-                    [1, 2, '3', 4, 5],
-                    [2, '3', 4, 5, 6],
-                    [3, 4, 5, 6, 7],
-                ],
-                1,
-                [1, 2, '3', 3, 4, 5, 6, 7],
-            ],
-            [
-                [
-                    [1, 2, '3', 4, 5],
-                    [2, '3', 4, 5, 6],
-                    [3, 4, 5, 6, 7],
-                ],
-                2,
-                [2, 3, 4, 5, 6],
-            ],
-            [
-                [
-                    [1, 2, '3', 4, 5],
-                    [2, '3', 4, 5, 6],
-                    [3, 4, 5, 6, 7],
-                ],
-                3,
-                [4, 5],
-            ],
-            [
-                [
-                    [1, 2, '3', 4, 5],
-                    [2, '3', 4, 5, 6],
-                    [3, 4, 5, 6, 7],
-                ],
-                4,
                 [],
             ],
             [
@@ -667,66 +771,6 @@ class MixedSetIterableImplementationTest extends Unit
                     $gen([false]),
                 ],
                 3,
-                [],
-            ],
-            [
-                [
-                    $gen([1, 2, 1.2, 1.3, 'a', 'b', true, false]),
-                    $gen([1, 3, 1.2, 1.5, 'a', 'c', true]),
-                ],
-                1,
-                [1, 2, 3, 1.2, 1.3, 1.5, 'a', 'b', 'c', true, false],
-            ],
-            [
-                [
-                    $gen([1, 2, 1.2, 1.3, 'a', 'b', true, false]),
-                    $gen([1, 3, 1.2, 1.5, 'a', 'c', true]),
-                ],
-                2,
-                [1, 1.2, 'a', true],
-            ],
-            [
-                [
-                    $gen([1, 2, 1.2, 1.3, 'a', 'b', true, false]),
-                    $gen([1, 3, 1.2, 1.5, 'a', 'c', true]),
-                ],
-                3,
-                [],
-            ],
-            [
-                [
-                    $gen([1, 2, '3', 4, 5]),
-                    $gen([2, '3', 4, 5, 6]),
-                    $gen([3, 4, 5, 6, 7]),
-                ],
-                1,
-                [1, 2, '3', 3, 4, 5, 6, 7],
-            ],
-            [
-                [
-                    $gen([1, 2, '3', 4, 5]),
-                    $gen([2, '3', 4, 5, 6]),
-                    $gen([3, 4, 5, 6, 7]),
-                ],
-                2,
-                [2, 3, 4, 5, 6],
-            ],
-            [
-                [
-                    $gen([1, 2, '3', 4, 5]),
-                    $gen([2, '3', 4, 5, 6]),
-                    $gen([3, 4, 5, 6, 7]),
-                ],
-                3,
-                [4, 5],
-            ],
-            [
-                [
-                    $gen([1, 2, '3', 4, 5]),
-                    $gen([2, '3', 4, 5, 6]),
-                    $gen([3, 4, 5, 6, 7]),
-                ],
-                4,
                 [],
             ],
             [
@@ -1080,66 +1124,6 @@ class MixedSetIterableImplementationTest extends Unit
             ],
             [
                 [
-                    $iter([1, 2, 1.2, 1.3, 'a', 'b', true, false]),
-                    $iter([1, 3, 1.2, 1.5, 'a', 'c', true]),
-                ],
-                1,
-                [1, 2, 3, 1.2, 1.3, 1.5, 'a', 'b', 'c', true, false],
-            ],
-            [
-                [
-                    $iter([1, 2, 1.2, 1.3, 'a', 'b', true, false]),
-                    $iter([1, 3, 1.2, 1.5, 'a', 'c', true]),
-                ],
-                2,
-                [1, 1.2, 'a', true],
-            ],
-            [
-                [
-                    $iter([1, 2, 1.2, 1.3, 'a', 'b', true, false]),
-                    $iter([1, 3, 1.2, 1.5, 'a', 'c', true]),
-                ],
-                3,
-                [],
-            ],
-            [
-                [
-                    $iter([1, 2, '3', 4, 5]),
-                    $iter([2, '3', 4, 5, 6]),
-                    $iter([3, 4, 5, 6, 7]),
-                ],
-                1,
-                [1, 2, '3', 3, 4, 5, 6, 7],
-            ],
-            [
-                [
-                    $iter([1, 2, '3', 4, 5]),
-                    $iter([2, '3', 4, 5, 6]),
-                    $iter([3, 4, 5, 6, 7]),
-                ],
-                2,
-                [2, 3, 4, 5, 6],
-            ],
-            [
-                [
-                    $iter([1, 2, '3', 4, 5]),
-                    $iter([2, '3', 4, 5, 6]),
-                    $iter([3, 4, 5, 6, 7]),
-                ],
-                3,
-                [4, 5],
-            ],
-            [
-                [
-                    $iter([1, 2, '3', 4, 5]),
-                    $iter([2, '3', 4, 5, 6]),
-                    $iter([3, 4, 5, 6, 7]),
-                ],
-                4,
-                [],
-            ],
-            [
-                [
                     $iter([[1], [2], [3], [4], [5]]),
                     $iter([[2], [3], [4], [5], [6]]),
                     $iter([[3], [4], [5], [6], [7]]),
@@ -1485,66 +1469,6 @@ class MixedSetIterableImplementationTest extends Unit
                     $trav([false]),
                 ],
                 3,
-                [],
-            ],
-            [
-                [
-                    $trav([1, 2, 1.2, 1.3, 'a', 'b', true, false]),
-                    $trav([1, 3, 1.2, 1.5, 'a', 'c', true]),
-                ],
-                1,
-                [1, 2, 3, 1.2, 1.3, 1.5, 'a', 'b', 'c', true, false],
-            ],
-            [
-                [
-                    $trav([1, 2, 1.2, 1.3, 'a', 'b', true, false]),
-                    $trav([1, 3, 1.2, 1.5, 'a', 'c', true]),
-                ],
-                2,
-                [1, 1.2, 'a', true],
-            ],
-            [
-                [
-                    $trav([1, 2, 1.2, 1.3, 'a', 'b', true, false]),
-                    $trav([1, 3, 1.2, 1.5, 'a', 'c', true]),
-                ],
-                3,
-                [],
-            ],
-            [
-                [
-                    $trav([1, 2, '3', 4, 5]),
-                    $trav([2, '3', 4, 5, 6]),
-                    $trav([3, 4, 5, 6, 7]),
-                ],
-                1,
-                [1, 2, '3', 3, 4, 5, 6, 7],
-            ],
-            [
-                [
-                    $trav([1, 2, '3', 4, 5]),
-                    $trav([2, '3', 4, 5, 6]),
-                    $trav([3, 4, 5, 6, 7]),
-                ],
-                2,
-                [2, 3, 4, 5, 6],
-            ],
-            [
-                [
-                    $trav([1, 2, '3', 4, 5]),
-                    $trav([2, '3', 4, 5, 6]),
-                    $trav([3, 4, 5, 6, 7]),
-                ],
-                3,
-                [4, 5],
-            ],
-            [
-                [
-                    $trav([1, 2, '3', 4, 5]),
-                    $trav([2, '3', 4, 5, 6]),
-                    $trav([3, 4, 5, 6, 7]),
-                ],
-                4,
                 [],
             ],
             [

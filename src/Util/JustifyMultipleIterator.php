@@ -4,6 +4,10 @@ namespace Smoren\PartialIntersection\Util;
 
 /**
  * @implements \Iterator<array<mixed>>
+ *
+ * Based on IterTools PHP's IteratorFactory.
+ * @see https://github.com/markrogoyski/itertools-php
+ * @see https://github.com/markrogoyski/itertools-php/blob/main/src/Util/JustifyMultipleIterator.php
  */
 class JustifyMultipleIterator implements \Iterator
 {

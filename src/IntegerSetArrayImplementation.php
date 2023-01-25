@@ -9,6 +9,7 @@ class IntegerSetArrayImplementation
     /**
      * @param int $m
      * @param array<int> ...$sets
+     *
      * @return array<int>
      */
     public static function partialIntersection(int $m, array ...$sets): array

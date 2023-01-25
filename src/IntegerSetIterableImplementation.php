@@ -11,6 +11,7 @@ class IntegerSetIterableImplementation
     /**
      * @param int $m
      * @param iterable<int> ...$sets
+     *
      * @return \Generator<int>
      */
     public static function partialIntersection(int $m, iterable ...$sets): \Generator

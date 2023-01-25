@@ -11,9 +11,11 @@ class MixedSetIterableImplementation
 {
     /**
      * @template T
+     *
      * @param bool $strict
      * @param int $m
      * @param iterable<T> ...$sets
+     *
      * @return \Generator<T>
      */
     public static function partialIntersection(bool $strict, int $m, iterable ...$sets): \Generator

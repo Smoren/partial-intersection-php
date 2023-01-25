@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Smoren\PartialIntersection\Util;
 
+/**
+ * Based on IterTools PHP's IteratorFactory.
+ * @see https://github.com/markrogoyski/itertools-php
+ * @see https://github.com/markrogoyski/itertools-php/blob/main/src/Util/IteratorFactory.php
+ */
 class IteratorFactory
 {
     /**

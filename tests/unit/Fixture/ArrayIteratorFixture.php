@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Smoren\PartialIntersection\Tests\Unit\Fixture;
 
+/**
+ * Based on IterTools PHP's ArrayIteratorFixture.
+ * @see https://github.com/markrogoyski/itertools-php
+ * @see https://github.com/markrogoyski/itertools-php/blob/main/tests/Fixture/ArrayIteratorFixture.php
+ */
 class ArrayIteratorFixture implements \Iterator
 {
     private array $values;

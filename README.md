@@ -16,5 +16,5 @@ composer test
 
 #### Definition
 
-We have **N** sets. An **M**-partial intersection (for **M** > 0) of these sets is a set whose elements
+We have **N** sets. An **M**-partial intersection (for **M > 0**) of these sets is a set whose elements
 are contained in at least **M** initial sets.

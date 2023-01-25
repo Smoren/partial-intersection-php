@@ -5,21 +5,36 @@
 ![Build and test](https://github.com/Smoren/partial-intersection-php/actions/workflows/test_master.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-### Unit testing
+## Unit testing
 ```
 composer install
 composer test-init
 composer test
 ```
 
-### Theory
+## Theory
 
-#### Definition
+### Definition
 
-We have **N** sets. An **M**-partial intersection (for **M > 0**) of these sets is a set whose elements
-are contained in at least **M** initial sets.
+> An **M**-partial intersection (for **M > 0**) of **N** sets is a set whose elements
+  are contained in at least **M** initial sets.
 
-#### Simple integer sets example
+### Properties
+
+For any **N** sets:
+
+1. **1**-partial intersection is equivalent to the
+   [union](https://en.wikipedia.org/wiki/Union_(set_theory)) of these sets.
+2. **2**-partial intersection is equivalent to the
+   [difference](https://en.wikipedia.org/wiki/Complement_(set_theory)#Relative_complement) of the
+   [union](https://en.wikipedia.org/wiki/Union_(set_theory)) and the
+   [symmetric difference](https://en.wikipedia.org/wiki/Symmetric_difference) of these sets.
+3. **N**-partial intersection is equivalent to the
+   [common (complete) intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)) of these sets.
+4. For any **M > N** **M**-partial intersection always equals to the
+   [empty set](https://en.wikipedia.org/wiki/Empty_set).
+
+### Simple integer sets example
 
 Given: sets **A**, **B**, **C**, **D** (**N = 4**).
 
@@ -30,9 +45,8 @@ $c = [1, 2, 3, 12];
 $d = [1, 4, 13, 14];
 ```
 
-##### M = 1
-
-It is equivalent to classical union operation (for any **N**).
+#### M = 1
+It is equivalent to `A ∪ B ∪ C ∪ D`.
 
 ![image](docs/images/1.png)
 
@@ -43,8 +57,8 @@ $r = IntegerSetArrayImplementation::partialIntersection(1, $a, $b, $c, $d);
 // [1, 2, 3, 4, 5, 10, 11, 12, 13, 14]
 ```
 
-##### M = 2
-It is equivalent to `union($a, $b, $c, $d) - symmetricDifference($a, $b, $c, $d)` (for any N).
+#### M = 2
+It is equivalent to `(A ∪ B ∪ C ∪ D) \ (A ∆ B ∆ C ∆ D)`.
 
 ![image](docs/images/2.png)
 
@@ -55,7 +69,7 @@ $r = IntegerSetArrayImplementation::partialIntersection(2, $a, $b, $c, $d);
 // [1, 2, 3, 4]
 ```
 
-##### M = 3
+#### M = 3
 
 ![image](docs/images/3.png)
 
@@ -66,8 +80,8 @@ $r = IntegerSetArrayImplementation::partialIntersection(3, $a, $b, $c, $d);
 // [1, 2]
 ```
 
-##### M = 4 (M = N)
-It is equivalent to classical (complete) intersection operation (for any **N**).
+#### M = 4 (M = N)
+It is equivalent to `A ∩ B ∩ C ∩ D`.
 
 ![image](docs/images/4.png)
 
@@ -78,8 +92,8 @@ $r = IntegerSetArrayImplementation::partialIntersection(4, $a, $b, $c, $d);
 // [1]
 ```
 
-##### M = 5 (M > N)
-It is equivalent to empty set (for any **M**, **N**: **M > N**)
+#### M = 5 (M > N)
+Equals to an empty set.
 
 ![image](docs/images/5.png)
 

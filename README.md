@@ -27,6 +27,13 @@ For any **N** sets:
 4. For any **M > N** **M**-partial intersection always equals to the
    [empty set](https://en.wikipedia.org/wiki/Empty_set).
 
+## Examples
+
+* [Simple integer sets example](#Simple-integer-sets-example)
+* [Iterable integer sets example](#Iterable-integer-sets-example)
+* [Mixed iterable sets example](#Mixed-iterable-sets-example)
+* [Multisets example](#Multisets-example)
+
 ### Simple integer sets example
 
 Given: sets **A**, **B**, **C**, **D** (**N = 4**).
@@ -94,6 +101,95 @@ Equals to an empty set.
 use Smoren\PartialIntersection\IntegerSetArrayImplementation;
 
 $r = IntegerSetArrayImplementation::partialIntersection(5, $a, $b, $c, $d);
+// []
+```
+
+### Iterable integer sets example
+```php
+$a = [1, 2, 3, 4, 5];
+$b = [1, 2, 10, 11];
+$c = [1, 2, 3, 12];
+$d = [1, 4, 13, 14];
+
+use Smoren\PartialIntersection\IntegerSetIterableImplementation;
+
+$r = IntegerSetArrayImplementation::partialIntersection(1, $a, $b, $c, $d);
+print_r(iterator_to_array($r));
+// [1, 2, 3, 4, 5, 10, 11, 12, 13, 14]
+
+$r = IntegerSetArrayImplementation::partialIntersection(2, $a, $b, $c, $d);
+print_r(iterator_to_array($r));
+// [1, 2, 3, 4]
+
+$r = IntegerSetArrayImplementation::partialIntersection(3, $a, $b, $c, $d);
+print_r(iterator_to_array($r));
+// [1, 2]
+
+$r = IntegerSetArrayImplementation::partialIntersection(4, $a, $b, $c, $d);
+print_r(iterator_to_array($r));
+// [1]
+
+$r = IntegerSetArrayImplementation::partialIntersection(5, $a, $b, $c, $d);
+print_r(iterator_to_array($r));
+// []
+```
+
+### Mixed iterable sets example
+```php
+$a = ['1', 2, 3, 4, 5];
+$b = ['1', 2, 10, 11];
+$c = ['1', 2, 3, 12];
+$d = ['1', 4, 13, 14];
+
+use Smoren\PartialIntersection\MixedSetIterableImplementation;
+
+$r = MixedSetIterableImplementation::partialIntersection(true, 1, $a, $b, $c, $d);
+print_r(iterator_to_array($r));
+// ['1', 2, 3, 4, 5, 10, 11, 12, 13, 14]
+
+$r = MixedSetIterableImplementation::partialIntersection(true, 2, $a, $b, $c, $d);
+print_r(iterator_to_array($r));
+// ['1', 2, 3, 4]
+
+$r = MixedSetIterableImplementation::partialIntersection(true, 3, $a, $b, $c, $d);
+print_r(iterator_to_array($r));
+// ['1', 2]
+
+$r = MixedSetIterableImplementation::partialIntersection(true, 4, $a, $b, $c, $d);
+print_r(iterator_to_array($r));
+// ['1']
+
+$r = IntegerSetArrayImplementation::partialIntersection(true, 5, $a, $b, $c, $d);
+print_r(iterator_to_array($r));
+// []
+```
+
+### Multisets example
+
+*Note: If input collections contains duplicate items, then
+[multiset](https://en.wikipedia.org/wiki/Multiset) intersection rules apply.*
+
+```php
+$a = [1, 1, 1, 1, 1];
+$b = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5];
+$c = [5, 5, 5, 5, 5, 1, 5, 5, 1];
+
+use Smoren\PartialIntersection\MultisetIterableImplementation;
+
+$r = MultisetIterableImplementation::partialIntersection(1, $a, $b, $c);
+print_r(iterator_to_array($r));
+// [1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5]
+
+$r = MultisetIterableImplementation::partialIntersection(2, $a, $b, $c);
+print_r(iterator_to_array($r));
+// [1, 1, 5, 5]
+
+$r = MultisetIterableImplementation::partialIntersection(3, $a, $b, $c);
+print_r(iterator_to_array($r));
+// [1, 1]
+
+$r = MultisetIterableImplementation::partialIntersection(4, $a, $b, $c);
+print_r(iterator_to_array($r));
 // []
 ```
 

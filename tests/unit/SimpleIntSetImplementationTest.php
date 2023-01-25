@@ -10,6 +10,78 @@ use Smoren\PartialIntersection\SimpleIntSetImplementation;
 class SimpleIntSetImplementationTest extends Unit
 {
     /**
+     * @dataProvider dataProviderForDemo
+     * @param array $sets
+     * @param int $m
+     * @param array $expected
+     * @return void
+     */
+    public function testDemo(array $sets, int $m, array $expected): void
+    {
+        // When
+        $result = SimpleIntSetImplementation::partialIntersection($m, ...$sets);
+
+        // Then
+        $this->assertEquals($expected, $result);
+    }
+
+    public function dataProviderForDemo(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3, 4, 5],
+                    [1, 2, 10, 11],
+                    [1, 2, 3, 12],
+                    [1, 4, 13, 14],
+                ],
+                1,
+                [1, 2, 3, 4, 5, 10, 11, 12, 13, 14],
+            ],
+            [
+                [
+                    [1, 2, 3, 4, 5],
+                    [1, 2, 10, 11],
+                    [1, 2, 3, 12],
+                    [1, 4, 13, 14],
+                ],
+                2,
+                [1, 2, 3, 4],
+            ],
+            [
+                [
+                    [1, 2, 3, 4, 5],
+                    [1, 2, 10, 11],
+                    [1, 2, 3, 12],
+                    [1, 4, 13, 14],
+                ],
+                3,
+                [1, 2],
+            ],
+            [
+                [
+                    [1, 2, 3, 4, 5],
+                    [1, 2, 10, 11],
+                    [1, 2, 3, 12],
+                    [1, 4, 13, 14],
+                ],
+                4,
+                [1],
+            ],
+            [
+                [
+                    [1, 2, 3, 4, 5],
+                    [1, 2, 10, 11],
+                    [1, 2, 3, 12],
+                    [1, 4, 13, 14],
+                ],
+                5,
+                [],
+            ],
+        ];
+    }
+
+    /**
      * @dataProvider dataProviderForMain
      * @param array $sets
      * @param int $m

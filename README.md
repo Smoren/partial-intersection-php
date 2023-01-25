@@ -5,13 +5,6 @@
 ![Build and test](https://github.com/Smoren/partial-intersection-php/actions/workflows/test_master.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Unit testing
-```
-composer install
-composer test-init
-composer test
-```
-
 ## Theory
 
 ### Definition
@@ -102,4 +95,11 @@ use Smoren\PartialIntersection\IntegerSetArrayImplementation;
 
 $r = IntegerSetArrayImplementation::partialIntersection(5, $a, $b, $c, $d);
 // []
+```
+
+## Unit testing
+```
+composer install
+composer test-init
+composer test
 ```

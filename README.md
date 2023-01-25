@@ -176,19 +176,19 @@ $c = [5, 5, 5, 5, 5, 1, 5, 5, 1];
 
 use Smoren\PartialIntersection\MultisetIterableImplementation;
 
-$r = MultisetIterableImplementation::partialIntersection(1, $a, $b, $c);
+$r = MultisetIterableImplementation::partialIntersection(true, 1, $a, $b, $c);
 print_r(iterator_to_array($r));
 // [1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5]
 
-$r = MultisetIterableImplementation::partialIntersection(2, $a, $b, $c);
+$r = MultisetIterableImplementation::partialIntersection(true, 2, $a, $b, $c);
 print_r(iterator_to_array($r));
 // [1, 1, 5, 5]
 
-$r = MultisetIterableImplementation::partialIntersection(3, $a, $b, $c);
+$r = MultisetIterableImplementation::partialIntersection(true, 3, $a, $b, $c);
 print_r(iterator_to_array($r));
 // [1, 1]
 
-$r = MultisetIterableImplementation::partialIntersection(4, $a, $b, $c);
+$r = MultisetIterableImplementation::partialIntersection(true, 4, $a, $b, $c);
 print_r(iterator_to_array($r));
 // []
 ```

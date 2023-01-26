@@ -605,6 +605,24 @@ class MixedSetIterableImplementationTest extends Unit
                 4,
                 [],
             ],
+            [
+                [
+                    [null, 1, 2, 3],
+                    [1, 2, 3, 4, 5],
+                    [2, 3, 4],
+                ],
+                2,
+                [1, 2, 3, 4]
+            ],
+            [
+                [
+                    [null, 1, 2, 3],
+                    [null, 1, 2, 3, 4, 5],
+                    [2, 3, 4],
+                ],
+                2,
+                [null, 1, 2, 3, 4]
+            ],
         ];
     }
 

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Smoren\PartialIntersection;
 
-use Smoren\PartialIntersection\Util\IteratorFactory;
+use Smoren\PartialIntersection\Util\JustifyMultipleIterator;
+use Smoren\PartialIntersection\Util\NoValueMonad;
 use Smoren\PartialIntersection\Util\UniqueExtractor;
 
 class MixedSetIterableImplementation
@@ -20,17 +21,13 @@ class MixedSetIterableImplementation
      */
     public static function partialIntersection(bool $strict, int $m, iterable ...$sets): \Generator
     {
-        $iterator = new \MultipleIterator(\MultipleIterator::MIT_NEED_ANY);
-
-        foreach ($sets as $set) {
-            $iterator->attachIterator(IteratorFactory::makeIterator($set));
-        }
+        $iterator = new JustifyMultipleIterator(...$sets);
 
         $usageMap = [];
 
         foreach ($iterator as $values) {
             foreach ($values as $value) {
-                if ($value === null) {
+                if ($value instanceof NoValueMonad) {
                     continue;
                 }
 

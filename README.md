@@ -58,7 +58,7 @@ $r = IntegerSetArrayImplementation::partialIntersection(1, $a, $b, $c, $d);
 ```
 
 #### M = 2
-It is equivalent to `(A ∪ B ∪ C ∪ D) \ (A ∆ B ∆ C ∆ D)`.
+It is equivalent to `(A ∪ B ∪ C ∪ D) \ ∆(A, B, C, D)`.
 
 ![image](docs/images/2.png)
 

@@ -47,6 +47,20 @@ class IntegerSetArrayImplementation
     }
 
     /**
+     * @param int $m
+     * @param array<int> ...$sets
+     *
+     * @return array<int>
+     */
+    public static function partialIntersectionFunctionStyle(int $m, array ...$sets): array
+    {
+        $all = array_reduce($sets, fn ($carry, $set) => [...$carry, ...$set], []);
+        $result = array_keys(array_filter(array_count_values($all), fn ($count) => $count >= $m));
+        sort($result);
+        return $result;
+    }
+
+    /**
      * Symmetric difference of multiple sets.
      *
      * @param array<int> ...$sets

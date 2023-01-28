@@ -45,4 +45,18 @@ class IntegerSetArrayImplementation
 
         return $result;
     }
+
+    /**
+     * Symmetric difference of multiple sets.
+     *
+     * @param array<int> ...$sets
+     * @return array
+     */
+    public static function symmetricDifference(array ...$sets): array
+    {
+        $union = array_values(array_unique(array_merge(...$sets)));
+        $twoPartInt = self::partialIntersection(2, ...$sets);
+
+        return array_values(array_diff($union, $twoPartInt));
+    }
 }

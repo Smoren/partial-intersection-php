@@ -10,15 +10,15 @@ use Smoren\PartialIntersection\IntegerSetArrayImplementation;
 class IntegerSetArrayImplementationTest extends Unit
 {
     /**
-     * @dataProvider dataProviderForDemo
-     * @dataProvider dataProviderForMain
+     * @dataProvider dataProviderForPartialIntersectionDemo
+     * @dataProvider dataProviderForPartialIntersection
      *
      * @param array $sets
      * @param int $m
      * @param array $expected
      * @return void
      */
-    public function testMain(array $sets, int $m, array $expected): void
+    public function testPartialIntersection(array $sets, int $m, array $expected): void
     {
         // When
         $result = IntegerSetArrayImplementation::partialIntersection($m, ...$sets);
@@ -27,7 +27,7 @@ class IntegerSetArrayImplementationTest extends Unit
         $this->assertEquals($expected, $result);
     }
 
-    public function dataProviderForDemo(): array
+    public function dataProviderForPartialIntersectionDemo(): array
     {
         return [
             [
@@ -83,7 +83,7 @@ class IntegerSetArrayImplementationTest extends Unit
         ];
     }
 
-    public function dataProviderForMain(): array
+    public function dataProviderForPartialIntersection(): array
     {
         return [
             [
@@ -285,6 +285,34 @@ class IntegerSetArrayImplementationTest extends Unit
                 ],
                 2,
                 [1, 3, 4, 5, 7],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderForSymmetricDifference
+     * @param array<array<int>> $sets
+     * @param array<int> $expected
+     * @return void
+     */
+    public function testSymmetricDifference(array $sets, array $expected): void
+    {
+        $symmetricDifference = IntegerSetArrayImplementation::symmetricDifference(...$sets);
+
+        $this->assertEquals($expected, $symmetricDifference);
+    }
+
+    public function dataProviderForSymmetricDifference(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3, 4, 5],
+                    [2, 3, 4, 5, 6],
+                    [3, 4, 5, 6, 7],
+                    [4, 5, 6, 7, 8],
+                ],
+                [1, 8],
             ],
         ];
     }

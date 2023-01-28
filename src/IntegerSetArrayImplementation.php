@@ -50,7 +50,7 @@ class IntegerSetArrayImplementation
      * Symmetric difference of multiple sets.
      *
      * @param array<int> ...$sets
-     * @return array
+     * @return array<int>
      */
     public static function symmetricDifference(array ...$sets): array
     {

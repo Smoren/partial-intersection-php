@@ -34,7 +34,7 @@ class MultisetIterableImplementation
                 $usageMap->addUsage($value, (string)$owner);
 
                 if ($usageMap->getOwnersCount($value) === $m) {
-                    yield $index => $value;
+                    yield $value;
                     $usageMap->deleteUsage($value);
                 }
             }

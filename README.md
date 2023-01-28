@@ -18,13 +18,9 @@ For any **N** sets:
 
 1. **1**-partial intersection is equivalent to the
    [union](https://en.wikipedia.org/wiki/Union_(set_theory)) of these sets.
-2. **2**-partial intersection is equivalent to the
-   [difference](https://en.wikipedia.org/wiki/Complement_(set_theory)#Relative_complement) of the
-   [union](https://en.wikipedia.org/wiki/Union_(set_theory)) and the
-   [symmetric difference](https://en.wikipedia.org/wiki/Symmetric_difference) of these sets.
-3. **N**-partial intersection is equivalent to the
+2. **N**-partial intersection is equivalent to the
    [common (complete) intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)) of these sets.
-4. For any **M > N** **M**-partial intersection always equals to the
+3. For any **M > N** **M**-partial intersection always equals to the
    [empty set](https://en.wikipedia.org/wiki/Empty_set).
 
 ## Examples
@@ -58,8 +54,6 @@ $r = IntegerSetArrayImplementation::partialIntersection(1, $a, $b, $c, $d);
 ```
 
 #### M = 2
-It is equivalent to `(A ∪ B ∪ C ∪ D) \ ∆(A, B, C, D)`.
-
 ![image](docs/images/2.png)
 
 ```php
